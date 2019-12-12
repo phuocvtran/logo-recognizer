@@ -7,19 +7,15 @@ import os
 import h5py
 import time
 
-
 LIST_IMG = []
 IMG_PATH = app.config["WORKING_DIR"]
 DATA_DIR = app.config["DATA_DIR"]
 
-
 model = NaiveBayesNN()
-hf = h5py.File(DATA_DIR + "dsift_81.h5", "r")
-model.fit(hf)
 
 
 def allowed_file(filename):
-    if not '.' in filename:
+    if '.' not in filename:
         return False
     ext = filename.rsplit(".", 1)[1]
     if ext.lower() in app.config["ALLOWED_EXTENTIONS"]:
@@ -30,6 +26,8 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_image():
+    hf = h5py.File(DATA_DIR + "dsift_81.h5", "r")
+    model.fit(hf)
     if request.method == 'POST':
         if request.form['button'] == 'Upload':
             if request.files:
@@ -66,9 +64,10 @@ def upload_image():
             return render_template('home.html', filename=filename, label=label[len(label) - 1], total=round(total, 2))
     return render_template('home.html')
 
-@app.route('/<string:id>', methods=['GET', 'POST'])
+
+@app.route('/<int:id>', methods=['GET', 'POST'])
 def upload_image_with_id(id):
-    hf = h5py.File(DATA_DIR + "dsift_"+ id + ".h5", "r")
+    hf = h5py.File(DATA_DIR + "dsift_" + str(id) + ".h5", "r")
     model.fit(hf)
     if request.method == 'POST':
         if request.form['button'] == 'Upload':
