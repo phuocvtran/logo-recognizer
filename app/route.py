@@ -65,3 +65,43 @@ def upload_image():
             hf.close()
             return render_template('home.html', filename=filename, label=label[len(label) - 1], total=round(total, 2))
     return render_template('home.html')
+
+@app.route('/<string:id>', methods=['GET', 'POST'])
+def upload_image_with_id(id):
+    hf = h5py.File(DATA_DIR + "dsift_"+ id + ".h5", "r")
+    model.fit(hf)
+    if request.method == 'POST':
+        if request.form['button'] == 'Upload':
+            if request.files:
+                file = request.files['image']
+                if file.filename == '':
+                    print("No file name")
+                    return redirect(request.url)
+                if not allowed_file(file.filename):
+                    print("That image is not allowed")
+                    return redirect(request.url)
+                else:
+                    filename = secure_filename(file.filename)
+                    app.config["LOCAL_IMAGE"] = filename
+                    file.save(os.path.join(
+                        app.config["WORKING_DIR"], filename))
+                    return render_template('home.html', filename=filename)
+
+            else:
+                flash('No file part')
+                return redirect(request.url)
+        elif request.form['button'] == 'Predict':
+            filename = app.config["LOCAL_IMAGE"]
+            path = IMG_PATH + filename
+            print(path)
+            img = cv2.imread(path)
+            LIST_IMG.append(img)
+            print(LIST_IMG)
+            start = time.time()
+            label = model.predict(LIST_IMG, step=10)
+            end = time.time()
+            total = end - start
+            hf.close()
+            LIST_IMG.clear()
+            return render_template('home.html', filename=filename, label=label[len(label) - 1], total=round(total, 2))
+    return render_template('home.html')
