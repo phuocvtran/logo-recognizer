@@ -9,6 +9,7 @@ Cài đặt các thư viện cần thiết bằng command này
 ```
 python -m pip install -r requirements.txt
 ```
+Sau đó tải file [này](https://studenthcmupedu-my.sharepoint.com/:u:/g/personal/4301104136_student_hcmup_edu_vn/EWeJooenZvRLsitMj7iYw08BcsYgB3ivfqnKTSKtI_cFIg?e=NPPsdS) và giải nén vào thư mục gốc logo-recognizer.
 ### Run
 Chạy 2 command sau để khởi động server
 
