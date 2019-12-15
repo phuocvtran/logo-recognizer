@@ -60,7 +60,7 @@ class NaiveBayesNN:
             key_points, des = self.getDSift(image, step)
             all_dist = {}
             for label in self.keys:
-                dist, ind = self.trees[label].query(X=des, k=1)
+                dist, ind = self.trees[label].query(X=des, k=1, dualtree=True)
                 sum_dist = np.sum(dist)
                 all_dist[label] = sum_dist
             y.append(min(all_dist, key=all_dist.get))
@@ -76,7 +76,7 @@ class NaiveBayesNN:
         for label in keys:
             class_dsift = self.dsift_file.get(label)
             class_dsift = np.array(class_dsift)
-            tree = KDTree(class_dsift)
+            tree = KDTree(class_dsift, metric="manhattan", leaf_size=2560)
             kd_trees[label] = tree
 
         return kd_trees
