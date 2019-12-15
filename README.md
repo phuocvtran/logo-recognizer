@@ -13,8 +13,14 @@ Sau đó tải file [này](https://studenthcmupedu-my.sharepoint.com/:u:/g/perso
 ### Run
 Chạy 2 command sau để khởi động server
 
+Windows:
 ```
 set FLASK_APP=run.py
+flask run
+```
+Linux:
+```
+export FLASK_APP=run.py
 flask run
 ```
 Sau đó truy cập vào [localhost:5000](http://localhost:5000/)
