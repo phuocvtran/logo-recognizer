@@ -26,7 +26,7 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_image():
-    hf = h5py.File(DATA_DIR + "dsift_81.h5", "r")
+    hf = h5py.File(DATA_DIR + "dsift_88.h5", "r")
     model.fit(hf)
     if request.method == 'POST':
         if request.form['button'] == 'Upload':
