@@ -10,14 +10,18 @@ class NaiveBayesNN:
         self.trees = None
         self.keys = None
 
-    def fit(self, dsift_file):
+    def fit(self, dsift_path):
         """
         Từ các key trong file hdf5 tạo nên các cây tương ứng
-        :param dsift_file: file hdf5 lưu trữ dsift của các lớp
+        :param dsift_file: path đến file hdf5 lưu trữ dsift của các lớp
+        :param return: Trả về các key của file
         """
-        self.dsift_file = dsift_file
+        self.dsift_file = h5py.File(dsift_path, "r")
         self.keys = [key for key in self.dsift_file.keys()]
         self.trees = self.construct_kd_tree(self.keys)
+        self.dsift_file.close()
+
+        return self.keys
 
     def getDSift(self, image, step_size):
         """
@@ -64,6 +68,7 @@ class NaiveBayesNN:
                 sum_dist = np.sum(dist)
                 all_dist[label] = sum_dist
             y.append(min(all_dist, key=all_dist.get))
+
         return y
 
     def construct_kd_tree(self, keys):

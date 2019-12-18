@@ -14,7 +14,7 @@ Linux:
 ```
 python3 -m pip install -r requirements.txt
 ```
-Sau đó tải file [này](https://studenthcmupedu-my.sharepoint.com/:u:/g/personal/4301104136_student_hcmup_edu_vn/EWeJooenZvRLsitMj7iYw08BcsYgB3ivfqnKTSKtI_cFIg?e=NPPsdS) và giải nén vào thư mục gốc logo-recognizer.
+Sau đó tải file [này](https://studenthcmupedu-my.sharepoint.com/:u:/g/personal/4301104136_student_hcmup_edu_vn/ERbPTJX8iOFGnQiag3Ew1v0BV2A3DfnskqKs4JvuqtVa0g?e=fL15ma) và giải nén vào thư mục gốc logo-recognizer.
 ### Run
 Chạy 2 command sau để khởi động server
 
