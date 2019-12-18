@@ -8,12 +8,16 @@
     <input type="submit" value="Predict" name="button">
 </form>
 
-<h2> {{ label }}</h2>
+{% for label in labels %}
+<h2> {{ label }}</h2>    
+{% endfor %}
+
 <h2>{{ total }}</h2>
 
 {% if filename %}
 <img src="/static/upload/{{ filename }}" alt="">
-{% else %}
+{% elif result %}
+<img src="{{ result }}" alt="">{% else %}
 <h3>No image file</h3>
 {% endif %}
 
