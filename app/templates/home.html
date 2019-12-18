@@ -9,15 +9,17 @@
 </form>
 
 {% for label in labels %}
-<h2> {{ label }}</h2>    
+<h2> {{ label }}</h2>
 {% endfor %}
 
 <h2>{{ total }}</h2>
 
 {% if filename %}
 <img src="/static/upload/{{ filename }}" alt="">
-{% elif result %}
-<img src="{{ result }}" alt="">{% else %}
+{% elif nolabel %}
+<h3>Can't detect any logo</h3>
+<img src="/static/upload/{{ nolabel }}" alt="">
+{% else %}
 <h3>No image file</h3>
 {% endif %}
 

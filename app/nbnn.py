@@ -59,6 +59,9 @@ class NaiveBayesNN:
         :param step: Số bước để chia vùng ảnh lấy dsift
         :return: Nhãn y dự đoán lớp ảnh thuộc về
         """
+        if not images:
+            return None
+
         y = []
         for image in images:
             key_points, des = self.getDSift(image, step)
