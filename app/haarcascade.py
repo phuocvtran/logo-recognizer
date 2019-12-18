@@ -54,5 +54,6 @@ class HaarCascade:
                 h = int(h)
                 crop_img = image[y : y + h, x : x + w]
                 img_list.append(crop_img)
-            self.detected_logo_coords = np.zeros(4)
+
+        self.detected_logo_coords = np.zeros(4)
         return img_list
