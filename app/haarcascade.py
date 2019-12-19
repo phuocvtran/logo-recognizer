@@ -6,7 +6,7 @@ import os
 class HaarCascade:
     def __init__(self):
         self.logo_cascade = {}
-        self.detected_logo_coords = np.zeros(4)
+        self.detected_logo_coords = None
 
     def fit(self, haar_xml_paths, keys):
         """
@@ -23,6 +23,7 @@ class HaarCascade:
         :param image: Đường dẫn đến ảnh
         :param dst: Đường dẫn đến nơi lưu trữ ảnh được vẽ
         """
+        self.detected_logo_coords = np.zeros(4)
         img_list = []
         image = cv2.imread(image)
         detect_img = image.copy()
@@ -55,5 +56,4 @@ class HaarCascade:
                 crop_img = image[y : y + h, x : x + w]
                 img_list.append(crop_img)
 
-        self.detected_logo_coords = np.zeros(4)
         return img_list
