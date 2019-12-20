@@ -1,26 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Upload new File</h1>
-<form action="#" method="POST" enctype="multipart/form-data">
-    <input type="file" name="image" id="" value="Choose image">
-    <input type="submit" value="Upload" name="button">
-    <input type="submit" value="Predict" name="button">
-</form>
+<div class="header">    
+    <h1>Upload new File</h1>
+</div>
+<div class="form-container">
+    <form action="#" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" value="Choose image">
+        <input type="submit" class="btn btn-primary mr-3" value="Upload" name="button">
+        <input type="submit" class="btn btn-success" value="Predict" name="button">
+    </form>
+</div>
+<div class="information">
+<h2> Tên logo đã dự đoán:
+    {% if labels %}
+    <br>
+        {% for label in labels %}
+        {{ label }}
+        {% endfor %}
+    {% else %}
+        chưa có logo
+    {% endif %}
+    
+</h2>
 
-{% for label in labels %}
-<h2> {{ label }}</h2>
-{% endfor %}
-
-<h2>{{ total }}</h2>
-
-{% if filename %}
-<img src="/static/upload/{{ filename }}" alt="">
-{% elif nolabel %}
-<h3>Can't detect any logo</h3>
-<img src="/static/upload/{{ nolabel }}" alt="">
-{% else %}
-<h3>No image file</h3>
-{% endif %}
+<h2> Thời gian dự đoán (giây): 
+    {% if total %}
+    {{ total }}s
+    {% else %}
+    0s
+    {% endif %}
+    </h2>
+</div>
+<div class="container">
+    {% if filename %}
+    <img src="/static/upload/{{ filename }}" alt="">
+    {% elif nolabel %}
+    <h3>Can't detect any logo</h3>
+    <img src="/static/upload/{{ nolabel }}" alt="">
+    {% else %}
+    <h3>No image file</h3>
+    {% endif %}
+</div>
 
 {% endblock content %}
