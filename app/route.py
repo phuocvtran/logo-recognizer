@@ -102,5 +102,5 @@ def upload_image_with_id():
             end = time.time()
             total = end - start
             LIST_IMG.clear()
-            return render_template('home.html', filename=filename, label=label, total=round(total, 2))
+            return render_template('home.html', filename=filename, labels=label, total=round(total, 2))
     return render_template('home.html')
