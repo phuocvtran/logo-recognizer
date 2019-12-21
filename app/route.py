@@ -15,7 +15,7 @@ DATA_DIR = app.config["DATA_DIR"]
 model = NaiveBayesNN()
 keys = model.fit(DATA_DIR + "dsift.h5")
 cascade = HaarCascade()
-cascade.fit("app/static/data/haar", ["apple", "bmw"]) # hiện tại chỉ có 2 keys sau sẽ sửa lại
+cascade.fit("app/static/data/haar", ["adidas", "aldi", "apple", "bmw", "cocacola", "pepsi"]) # hiện tại chỉ có 2 keys sau sẽ sửa lại
 i = 0
 
 def allowed_file(filename):

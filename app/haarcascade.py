@@ -28,21 +28,15 @@ class HaarCascade:
         image = cv2.imread(image)
         detect_img = image.copy()
         gray = cv2.cvtColor(detect_img, cv2.COLOR_BGR2GRAY)
-        G = 0
-        R = 0
-        B = 255
         i = 0
         for key in self.logo_cascade:
             curr_coord = self.logo_cascade[key].detectMultiScale(gray, 1.1, 1)
             if np.array(curr_coord).size > 3:
                 self.detected_logo_coords = np.vstack((self.detected_logo_coords, curr_coord))
                 for (x, y, w, h) in curr_coord:
-                    cv2.rectangle(detect_img, (x, y),(x + w, y + h), (B, G, R), 2)
-                    cv2.putText(img=detect_img, text=str(i + 1), org=(x, y - 3), fontFace=cv2.FONT_HERSHEY_SIMPLEX, color=(B, G, R), fontScale=0.8, thickness=2)
+                    cv2.rectangle(detect_img, (x, y),(x + w, y + h), (0, 255, 255), 3)
+                    cv2.putText(img=detect_img, text=str(i + 1), org=(x, y - 3), fontFace=cv2.FONT_HERSHEY_SIMPLEX, color=(0, 255, 255), fontScale=0.8, thickness=3)
                     i += 1
-                G += 11
-                R += abs(G / B)
-                B -= round(abs(B / G / R / 3))
 
         self.detected_logo_coords = np.delete(self.detected_logo_coords, 0, axis=0)
 
