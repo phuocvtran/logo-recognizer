@@ -13,7 +13,7 @@ IMG_PATH = app.config["WORKING_DIR"]
 DATA_DIR = app.config["DATA_DIR"]
 
 model = NaiveBayesNN()
-keys = model.fit(DATA_DIR + "dsift.h5")
+keys = model.fit(DATA_DIR + "dsift/")
 cascade = HaarCascade()
 cascade.fit("app/static/data/haar", ["adidas", "ferrari", "starbucks", "apple", "bmw"]) # hiện tại chỉ có 2 keys sau sẽ sửa lại
 i = 0
@@ -28,8 +28,9 @@ def allowed_file(filename):
         return False
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/detect', methods=['GET', 'POST'])
 def upload_image():
+    os.makedirs('app/static/upload', exist_ok=True)
     if request.method == 'POST':
         if request.form['button'] == 'Upload':
             if request.files:
@@ -72,8 +73,9 @@ def upload_image():
     return render_template('home.html')
 
 
-@app.route('/model', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def upload_image_with_id():
+    os.makedirs('app/static/upload', exist_ok=True)
     if request.method == 'POST':
         if request.form['button'] == 'Upload':
             if request.files:

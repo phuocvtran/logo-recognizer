@@ -1,4 +1,5 @@
 from sklearn.neighbors import KDTree
+from glob import glob
 import cv2
 import numpy as np
 import h5py
@@ -16,10 +17,15 @@ class NaiveBayesNN:
         :param dsift_file: path đến file hdf5 lưu trữ dsift của các lớp
         :param return: Trả về các key của file
         """
-        self.dsift_file = h5py.File(dsift_path, "r")
-        self.keys = [key for key in self.dsift_file.keys()]
+        self.dsift = {}
+        self.keys = []
+        for h5_file in glob(f'{dsift_path}/*.h5'):
+            print(h5_file)
+            key = (h5_file.split('/')[-1]).split('.')[0]
+            with h5py.File(h5_file, "r") as h5f:
+                self.dsift[key] = np.array(h5f.get('dsift'))
+            self.keys.append(key)
         self.trees = self.construct_kd_tree(self.keys)
-        self.dsift_file.close()
 
         return self.keys
 
@@ -82,8 +88,7 @@ class NaiveBayesNN:
         """
         kd_trees = {}
         for label in keys:
-            class_dsift = self.dsift_file.get(label)
-            class_dsift = np.array(class_dsift)
+            class_dsift = self.dsift[label]
             tree = KDTree(class_dsift, metric="manhattan", leaf_size=2560)
             kd_trees[label] = tree
 

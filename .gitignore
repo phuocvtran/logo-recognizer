@@ -127,7 +127,6 @@ dmypy.json
 *.png
 *.jpeg
 *.gif
-*.h5
 
 # vscode
 .vscode/*
